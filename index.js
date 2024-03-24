@@ -1,56 +1,24 @@
+// imports::
 const express = require("express");
 require("dotenv").config();
 const mongoose = require("mongoose");
-const User = require("./models/User");
+const userroutes = require("./routes/userroutes");
+const todoroutes = require("./routes/todoroutes");
 const app = express();
+// parsing midlwear:
 app.use(express.json());
 
-app.post("/user", async (req, res) => {
-  try {
-    console.log(req.body);
-    const user = await User.create(req.body);
-    res.status(201).json(user);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
-});
-app.get("/user", async (req, res) => {
-  try {
-    const users = await User.find();
-    res.json(users);
-  } catch (err) {
-    res.status(500).json(err.message);
-  }
-});
-app.get("/user/:id", async (req, res) => {
-  try {
-    const user = await User.findById(req.params.id);
-    if (!user) {
-      return res.status(404).json("user not found");
-    }
-    res.json(user);
-  } catch (err) {
-    res.status(500).json(err.message);
-  }
-});
-app.get("/user/:username", async (req, res) => {
-  try {
-    const user = await User.findOne({ username: req.params.username });
-    if (!user) {
-      res.status(404).json("this user name doesnt exsiste");
-    }
-    res.json(user);
-  } catch (err) {
-    res.status(500).json(err.message);
-  }
+// routes :
+app.use("/user", userroutes);
+app.use("/todos", todoroutes);
+
+// server init::
+app.listen(process.env.PORT, () => {
+  console.log("Server is running on port:", process.env.PORT);
 });
 
-
-
-
-app.listen(process.env.PORT);
+// connexion to data base :::
 mongoose
   .connect(process.env.URL)
-  .then(() => console.log("Connected to data base !"));
-
-console.log("server is running on port :", process.env.PORT);
+  .then(() => console.log("Connected to database!"))
+  .catch((err) => console.error("Error connecting to database:", err));
