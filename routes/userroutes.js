@@ -4,7 +4,9 @@ const router = express.Router();
 const userController = require("../controllers/userController");
 
 // Create a new user
-router.post("/", userController.CreateUser);
+router.post("/", userController.register);
+//  login
+router.post("/login", userController.login);
 
 // Get all users
 router.get("/", userController.getAllUsers);

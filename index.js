@@ -9,7 +9,7 @@ const app = express();
 app.use(express.json());
 
 // routes :
-app.use("/user", userroutes);
+app.use("/users", userroutes);
 app.use("/todos", todoroutes);
 
 // server init::
