@@ -5,8 +5,11 @@ const mongoose = require("mongoose");
 const userroutes = require("./routes/userroutes");
 const todoroutes = require("./routes/todoroutes");
 const app = express();
+const cors = require("cors");
 // parsing midlwear:
 app.use(express.json());
+// cors usage:
+app.use(cors());
 
 // routes :
 app.use("/users", userroutes);
