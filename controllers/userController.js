@@ -33,7 +33,7 @@ exports.login = async (req, res) => {
 
 exports.getUserById = async (req, res) => {
   try {
-    const user = await User.findById(req.params.id).populate("todos");
+    const user = await User.findById(req.params.id).populate("todo");
     if (!user) {
       return res.status(404).json("User not found");
     }

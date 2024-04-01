@@ -5,7 +5,6 @@ const userShema = new mongoose.Schema({
     unique: true,
     required: true,
     trim: true,
-    match: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
   },
   password: {
     type: String,
@@ -20,6 +19,9 @@ const userShema = new mongoose.Schema({
   todo: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Todo",
+  },
+  pdp: {
+    type: String,
   },
 });
 module.exports = mongoose.model("User", userShema);

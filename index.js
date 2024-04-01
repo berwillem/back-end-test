@@ -6,10 +6,16 @@ const userroutes = require("./routes/userroutes");
 const todoroutes = require("./routes/todoroutes");
 const app = express();
 const cors = require("cors");
+const upload = require("./middlewares/imageUpload");
 // parsing midlwear:
 app.use(express.json());
+app.use("/uploads", express.static("uploads"));
 // cors usage:
 app.use(cors());
+// image upload route :
+app.post("/upload", upload.single("image"), (req, res) => {
+  res.send("file uploaded succefuly");
+});
 
 // routes :
 app.use("/users", userroutes);
